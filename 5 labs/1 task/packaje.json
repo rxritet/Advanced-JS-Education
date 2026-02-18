@@ -1,0 +1,8 @@
+{
+  "name": "lab_05_task1",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node modernized/main.mjs"
+  }
+}
