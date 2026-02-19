@@ -15,8 +15,7 @@
 ```
 advanced-js-homework/
 ├── Lab_01/
-│   ├── task1/
-│   └── task2/
+│   └── ...
 ├── Lab_02/
 │   └── ...
 ├── Lab_03/
