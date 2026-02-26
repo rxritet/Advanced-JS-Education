@@ -14,16 +14,18 @@
 
 ```
 advanced-js-homework/
-├── Lab_01/
-│   └── ...
-├── Lab_02/
-│   └── ...
-├── Lab_03/
-│   └── ...
-├── Lab_04/
-│   └── ...
-├── Lab_05/
-│   └── ...
+├── 1 labs/          # Lab 01 — Intro / Basics
+│   ├── lab 1.1/
+│   └── lab 1.2/     # React + TypeScript (Vite, Context API)
+├── 2 labs/          # Lab 02 — Документация и анализ
+├── 3 labs/          # Lab 03 — Pattern Structure Documentation (API Wrapper)
+├── 5 labs/          # Lab 05 — Legacy Code Modernization (ES6+ modules)
+├── 6 labs/          # Lab 06 — Pattern Classification & GoF Mapping
+│   ├── 1 task/      # Snippet Classification, GoF Mapping, Reflection
+│   └── 2 task/      # Design Pattern Selection & Implementation
+├── 7 labs/          # Lab 07 — Singleton & Factory Patterns
+│   ├── 1 task/      # Singleton (class-based + module-based)
+│   └── 2-task/      # Factory Method (Notification system)
 └── README.md
 ```
 
@@ -31,13 +33,14 @@ advanced-js-homework/
 
 ## 🗂️ Список работ
 
-| # | Лабораторная | Статус |
-|---|---|---|
-| 01 | Lab 01 | ✅ Готово |
-| 02 | Lab 02 | ✅ Готово |
-| 03 | Lab 03 | ✅ Готово |
-| 04 | Lab 04 | ✅ Готово |
-| 05 | Lab 05 | ✅ Готово |
+| # | Лабораторная | Тема | Статус |
+|---|---|---|---|
+| 01 | Lab 01 | Intro / Basics, React + TypeScript + Context API | ✅ Готово |
+| 02 | Lab 02 | Документация и анализ | ✅ Готово |
+| 03 | Lab 03 | Pattern Structure Documentation (API Wrapper Pattern) | ✅ Готово |
+| 05 | Lab 05 | Legacy Code Modernization → ES6+ modules | ✅ Готово |
+| 06 | Lab 06 | Pattern Classification, GoF Mapping, Design Pattern Selection | ✅ Готово |
+| 07 | Lab 07 | Singleton & Factory Patterns (Creational GoF) | ✅ Готово |
 
 ---
 
@@ -70,10 +73,12 @@ npm run dev
 
 ## 📖 Чему я учусь
 
-- Паттерны проектирования (GoF): Creational, Structural, Behavioral
+- Паттерны проектирования (GoF): Creational (Singleton, Factory), Structural, Behavioral
 - Rule of Three и Pattern-ity Tests (Addy Osmani — *Learning JS Design Patterns*)
 - Provider Pattern через React Context API
 - TypeScript: типизация контекстов, generics, интерфейсы
+- Legacy Code Modernization: CommonJS → ES6+ modules
+- Pattern Classification & GoF Mapping (Class vs Object scope)
 - Профессиональный Git-флоу: conventional commits, структура веток
 
 ---
