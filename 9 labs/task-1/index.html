@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<body>
+  <script type="module">
+    import { NewsPublisher } from './publisher/NewsPublisher.js';
+    import { EmailNotifier } from './subscribers/EmailNotifier.js';
+    import { PushNotifier } from './subscribers/PushNotifier.js';
+    import { DashboardWidget } from './subscribers/DashboardWidget.js';
+
+    const bbc = new NewsPublisher("BBC");
+    const email = new EmailNotifier("user@mail.com");
+    const push = new PushNotifier("Device_XYZ");
+    const dash = new DashboardWidget("Main feed");
+
+    email.subscribe(["tech", "urgent"]);
+    push.subscribe(["urgent"]);
+    dash.subscribe();
+
+    bbc.publishArticle("tech", "New JS Engine", "V8 is updated", "normal");
+    bbc.publishArticle("sports", "Match Results", "1-0", "normal");
+    bbc.publishArticle("politics", "Breaking News", "Election results", "urgent");
+
+    email.unsubscribe();
+  </script>
+</body>
+</html>

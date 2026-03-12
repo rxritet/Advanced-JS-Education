@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<body>
+  <script type="module">
+    import { HomeMediator } from './mediator/HomeMediator.js';
+    import { Light } from './devices/Light.js';
+    import { Thermostat } from './devices/Thermostat.js';
+    import { CommandManager } from './commands/CommandManager.js';
+    import { TurnOnLightCommand } from './commands/LightCommands.js';
+
+    const mediator = new HomeMediator();
+    const light = new Light("Kitchen Light", "Kitchen");
+    const thermostat = new Thermostat("Main Thermostat", "Hallway");
+    
+    mediator.registerDevice(light);
+    mediator.registerDevice(thermostat);
+
+    mediator.addRule(
+      (device, state) => device.name === "Kitchen Light" && state.power === true,
+      () => thermostat.setTemperature(24) // Auto rule triggered by mediator
+    );
+
+    const cmdManager = new CommandManager();
+    const turnOn = new TurnOnLightCommand(light);
+
+    cmdManager.execute(turnOn); // Light ON -> triggers thermostat
+    cmdManager.undo(); // Light OFF
+  </script>
+</body>
+</html>
