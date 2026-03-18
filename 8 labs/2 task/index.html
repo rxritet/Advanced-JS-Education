@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 08.2 - Event Delegation Todo</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #202020;
+        color: #f0f0f0;
+      }
+      #controls {
+        padding: 10px;
+      }
+      #todo-list {
+        padding: 10px;
+      }
+      .todo-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 0;
+        border-bottom: 1px solid #333;
+      }
+      .todo-item.completed .todo-text {
+        text-decoration: line-through;
+        color: #777;
+      }
+      .priority-high {
+        border-left: 4px solid #ff5555;
+      }
+      .priority-normal {
+        border-left: 4px solid #ffaa00;
+      }
+      .priority-low {
+        border-left: 4px solid #55aa55;
+      }
+      .todo-actions button {
+        margin-left: 4px;
+      }
+      .edit-input {
+        flex: 1;
+        padding: 2px 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <input id="new-text" type="text" placeholder="New task" />
+      <button id="add-btn">Add</button>
+      <button id="generate-btn">Generate 1000+</button>
+    </div>
+
+    <div id="todo-list"></div>
+
+    <script type="module">
+      import { TodoList } from "./todo/TodoList.js";
+
+      const todo = new TodoList("todo-list");
+
+      const input = document.getElementById("new-text");
+      const addBtn = document.getElementById("add-btn");
+      const genBtn = document.getElementById("generate-btn");
+
+      addBtn.addEventListener("click", () => {
+        if (input.value.trim().length === 0) return;
+        todo.addItem(input.value.trim(), "normal");
+        input.value = "";
+        input.focus();
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addBtn.click();
+      });
+
+      genBtn.addEventListener("click", () => {
+        todo.generateItems(1000);
+      });
+    </script>
+  </body>
+</html>

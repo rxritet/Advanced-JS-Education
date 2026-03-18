@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 08.1 - Flyweight Forest</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #1e1e1e;
+        color: #ffffff;
+      }
+      #controls {
+        padding: 10px;
+      }
+      #forestCanvas {
+        display: block;
+        border: 1px solid #444;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <button id="generateBtn">Generate 10k trees</button>
+      <span id="stats"></span>
+    </div>
+    <canvas id="forestCanvas" width="1000" height="600"></canvas>
+
+    <script type="module">
+      import { ForestRenderer } from "./forest/ForestRenderer.js";
+
+      const renderer = new ForestRenderer("forestCanvas");
+      const statsSpan = document.getElementById("stats");
+      const btn = document.getElementById("generateBtn");
+
+      btn.addEventListener("click", () => {
+        renderer.generateForest(10000);
+        const stats = renderer.render();
+        statsSpan.textContent = `Total trees: ${stats.totalTrees}, unique flyweights: ${stats.uniqueFlyweights}, approx memorySaved: ${stats.memorySaved}`;
+      });
+    </script>
+  </body>
+</html>
