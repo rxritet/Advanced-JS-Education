@@ -1,117 +1,79 @@
-# 📚 Advanced JavaScript — Homework
+# Advanced JavaScript Labs
 
-![JavaScript](https://img.shields.io/badge/JavaScript-ES2024-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange?style=flat)
+Учебный репозиторий с лабораторными работами по курсу Advanced JavaScript.
+Проект объединяет практику по React + TypeScript, анализу и документированию кода,
+а также реализации паттернов проектирования (GoF).
 
-Репозиторий домашних и лабораторных работ по курсу **Advanced JavaScript**.
-Каждая работа — отдельная тема: паттерны проектирования, работа с API,
-асинхронность, React-архитектура и продвинутые концепции JS.
+## Что внутри
 
----
+- 1 лаба: базовые задания + React/Vite приложение с Context API
+- 2-3 лабы: документация, анализ и описание паттернов
+- 5 лаба: модернизация legacy-кода
+- 6-9 лабы: практические реализации паттернов (Singleton, Factory, Flyweight, Observer, Command, Mediator и др.)
 
-## 📂 Структура репозитория
+## Структура репозитория
 
-```
-advanced-js-homework/
-├── 1 labs/          # Lab 01 — Intro / Basics
-│   ├── lab 1.1/
-│   └── lab 1.2/     # React + TypeScript (Vite, Context API)
-├── 2 labs/          # Lab 02 — Документация и анализ
-├── 3 labs/          # Lab 03 — Pattern Structure Documentation (API Wrapper)
-├── 5 labs/          # Lab 05 — Legacy Code Modernization (ES6+ modules)
-├── 6 labs/          # Lab 06 — Pattern Classification & GoF Mapping
-│   ├── 1 task/      # Snippet Classification, GoF Mapping, Reflection
-│   └── 2 task/      # Design Pattern Selection & Implementation
-├── 7 labs/          # Lab 07 — Singleton & Factory Patterns
-│   ├── 1 task/      # Singleton (class-based + module-based)
-│   └── 2-task/      # Factory Method (Notification system)
-└── README.md
+```text
+├─ 1 labs/              
+├─ 2 labs/
+├─ 3 labs/
+├─ 5 labs/
+├─ 6 labs/
+├─ 7 labs/
+├─ 8 labs/
+└─ 9 labs/
 ```
 
----
+## Технологии
 
-## 🗂️ Список работ
+- JavaScript (ES6+)
+- TypeScript
+- React 18
+- Vite
+- Node.js + npm
 
-| # | Лабораторная | Тема | Статус |
-|---|---|---|---|
-| 01 | Lab 01 | Intro / Basics, React + TypeScript + Context API | ✅ Готово |
-| 02 | Lab 02 | Документация и анализ | ✅ Готово |
-| 03 | Lab 03 | Pattern Structure Documentation (API Wrapper Pattern) | ✅ Готово |
-| 05 | Lab 05 | Legacy Code Modernization → ES6+ modules | ✅ Готово |
-| 06 | Lab 06 | Pattern Classification, GoF Mapping, Design Pattern Selection | ✅ Готово |
-| 07 | Lab 07 | Singleton & Factory Patterns (Creational GoF) | ✅ Готово |
+## Быстрый старт
 
----
-
-## 🛠️ Технологии
-
-- **JavaScript** ES2024 / **TypeScript**
-- **React 18** — functional components, hooks, Context API
-- **Vite** — сборка и dev-сервер
-- **Node.js** v18+
-
----
-
-## 🚀 Быстрый старт
-
-Клонируй репозиторий и перейди в нужную лабораторную:
+### 1) Клонирование
 
 ```bash
 git clone https://github.com/Rad1o4kt1vchik/advanced-js-homework.git
-cd advanced-js-homework/Lab_01/task2
+cd advanced-js-homework
 ```
 
-Установи зависимости и запусти:
+### 2) Запуск React-приложения (лаба 1.2)
 
 ```bash
+cd "1 labs/lab 1.2"
 npm install
 npm run dev
 ```
 
----
+### 3) Проверка качества кода (для лабы 1.2)
 
-## 📖 Чему я учусь
-
-- Паттерны проектирования (GoF): Creational (Singleton, Factory), Structural, Behavioral
-- Rule of Three и Pattern-ity Tests (Addy Osmani — *Learning JS Design Patterns*)
-- Provider Pattern через React Context API
-- TypeScript: типизация контекстов, generics, интерфейсы
-- Legacy Code Modernization: CommonJS → ES6+ modules
-- Pattern Classification & GoF Mapping (Class vs Object scope)
-- Профессиональный Git-флоу: conventional commits, структура веток
-
----
-
-## 📝 Конвенция коммитов
-
-Все коммиты следуют [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-feat: add UserContext with createContext and useUser hook
-fix: resolve Provider state reset issue
-docs: update Lab 01 analysis report
-refactor: extract types into user.types.ts
+```bash
+npm run lint
+npm run build
 ```
 
----
+## Карта лабораторных
 
-## 📋 Требования курса
+| Папка | Содержание |
+|---|---|
+| `1 labs/lab 1.2` | React-приложение: компоненты, контекст, типы, стили |
+| `2 labs` | Отчеты и аналитические материалы |
+| `3 labs` | Анализ функций и документация по паттернам |
+| `5 labs` | Legacy-код и его модернизированная версия |
+| `6 labs` | Классификация паттернов, GoF mapping, сценарии выбора |
+| `7 labs` | Singleton и Factory Method |
+| `8 labs` | Flyweight и делегирование событий |
+| `9 labs` | Pub/Sub, Command, Mediator |
 
-- ✅ OquLabs — полноэкранный режим, активная печать, сессия 30+ мин
-- ✅ Git — правильная структура папок, 3+ коммита на лабу
-- ✅ AI Report — `AI_REPORT.md` в каждой лабораторной где использовался AI
-- ✅ camelCase naming, комментарии «почему», а не «что»
+## Примечания
 
----
+- В репозитории сохранены исходные названия директорий и файлов из условий лабораторных.
+- Для некоторых лабораторных используется отдельная документация: `README.md`, `AI_REPORT.md`, тематические `.md` файлы.
 
-## 👤 Автор
+## Автор
 
-**Radmir Abraev** — 2nd year CS student, Almaty 🇰🇿  
-[GitHub](https://github.com/Rad1o4kt1vchik)
-
----
-
-## 📄 Лицензия
-
-Учебный репозиторий — для личного использования и портфолио.
+Radmir Abraev
