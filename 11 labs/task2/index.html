@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 11.2 Demo</title>
+  </head>
+  <body>
+    <h1>Lab 11.2: DataFetcher, Pipeline, Cancellation</h1>
+    <button id="btn-user">Fetch user with details</button>
+    <button id="btn-cancel">Start & cancel long task</button>
+    <pre id="output"></pre>
+
+    <script type="module">
+      import PromiseHttpClient from '../task1/async/PromiseHttpClient.js';
+      import { DataFetcher } from './async/DataFetcher.js';
+      import {
+        AsyncPipeline,
+        mapParallel,
+        reduceAsync,
+      } from './async/Pipeline.js';
+      import {
+        CancellableFetcher,
+        TaskRunner,
+      } from './async/CancellableFetcher.js';
+
+      const output = document.getElementById('output');
+      const client = new PromiseHttpClient('https://jsonplaceholder.typicode.com');
+      const fetcher = new DataFetcher(client);
+      const cancellableFetcher = new CancellableFetcher();
+      const taskRunner = new TaskRunner();
+
+      function log(msg) {
+        output.textContent += msg + '\n';
+      }
+
+      document.getElementById('btn-user').addEventListener('click', async () => {
+        output.textContent = '';
+
+        try {
+          const details = await fetcher.fetchUserWithDetails(1);
+          log('User details:');
+          log(JSON.stringify(details, null, 2));
+
+          const pipeline = new AsyncPipeline()
+            .use(async (data) => {
+              return data.posts;
+            })
+            .use(async (posts) => {
+              return posts.map((p) => p.title.toUpperCase());
+            });
+
+          const processed = await pipeline.execute(details);
+          log('\nPipeline result (post titles):');
+          log(JSON.stringify(processed, null, 2));
+
+          const lengths = await mapParallel(
+            processed,
+            async (title) => title.length,
+            3,
+          );
+          const totalLength = await reduceAsync(
+            lengths,
+            async (acc, len) => acc + len,
+            0,
+          );
+
+          log(`\nTotal titles length: ${totalLength}`);
+        } catch (error) {
+          log(`Error: ${error.message}`);
+        }
+      });
+
+      let currentTaskId = null;
+
+      document.getElementById('btn-cancel').addEventListener('click', async () => {
+        output.textContent = '';
+
+        const { id } = taskRunner.add(async () => {
+          log('Long task started, will run 5 seconds...');
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          log('Long task finished');
+          return 'OK';
+        });
+
+        currentTaskId = id;
+
+        setTimeout(() => {
+          if (currentTaskId) {
+            log('Cancelling task...');
+            taskRunner.cancel(currentTaskId);
+          }
+        }, 1000);
+
+        try {
+          const result = await taskRunner.run(id);
+          log(`Task result: ${result}`);
+        } catch (error) {
+          log(`Task error: ${error.message}`);
+        } finally {
+          currentTaskId = null;
+        }
+      });
+    </script>
+  </body>
+</html>

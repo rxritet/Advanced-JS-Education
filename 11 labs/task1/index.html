@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 11.1 Demo</title>
+  </head>
+  <body>
+    <h1>Lab 11.1: Promise HTTP Client + Retry + AsyncQueue</h1>
+    <button id="btn-fetch">Fetch with retry</button>
+    <pre id="output"></pre>
+
+    <script type="module">
+      import PromiseHttpClient from './async/PromiseHttpClient.js';
+      import {
+        withRetryAndTimeout,
+        RetryableError,
+      } from './async/retry.js';
+      import { AsyncQueue } from './async/AsyncQueue.js';
+
+      const output = document.getElementById('output');
+      const client = new PromiseHttpClient('https://jsonplaceholder.typicode.com');
+
+      function log(msg) {
+        output.textContent += msg + '\n';
+      }
+
+      async function unreliableRequest() {
+        const shouldFail = Math.random() < 0.5;
+
+        if (shouldFail) {
+          throw new RetryableError('Simulated transient error', 503);
+        }
+
+        return client.get('/todos/1');
+      }
+
+      function createTask(index) {
+        return () =>
+          new Promise((resolve) => {
+            const delay = 500 + Math.random() * 1000;
+            setTimeout(() => resolve(`Task ${index + 1} done after ${delay}ms`), delay);
+          });
+      }
+
+      document.getElementById('btn-fetch').addEventListener('click', async () => {
+        output.textContent = '';
+
+        try {
+          const data = await withRetryAndTimeout(unreliableRequest, {
+            maxAttempts: 5,
+            baseDelay: 500,
+            timeout: 4000,
+            onRetry: ({ attempt, error, nextDelay }) => {
+              log(
+                `Retry attempt ${attempt}: ${error.message}, next delay: ${nextDelay}ms`,
+              );
+            },
+          });
+
+          log('Success:');
+          log(JSON.stringify(data, null, 2));
+        } catch (error) {
+          log(`Final error: ${error.message}`);
+        }
+
+        const queue = new AsyncQueue(2);
+        const tasks = Array.from({ length: 5 }, (_, i) => createTask(i));
+
+        const results = await queue.addAll(tasks);
+        log('\nAsyncQueue results:');
+        results.forEach((r) => log(r));
+        log('\nStats: ' + JSON.stringify(queue.getStats()));
+      });
+    </script>
+  </body>
+</html>
